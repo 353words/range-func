@@ -92,18 +92,18 @@ func Max[T cmp.Ordered](seq iter.Seq[T]) (T, error) {
 	pull, stop := iter.Pull(seq)
 	defer stop()
 
-	m, ok := pull()
+	max, ok := pull()
 	if !ok {
-		return m, fmt.Errorf("Max of empty sequence")
+		return max, fmt.Errorf("Max of empty sequence")
 	}
 
 	for v, ok := pull(); ok; v, ok = pull() {
-		if v > m {
-			m = v
+		if v > max {
+			max = v
 		}
 	}
 
-	return m, nil
+	return max, nil
 }
 
 func main() {
